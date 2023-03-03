@@ -1,12 +1,6 @@
 description = 'FourD Infrastructure'
 
 dependencies {
-    implementation project(':fourd-domain')
-    implementation project(':fourd-client')
-}
-bootJar {
-    enabled = false
-}
-jar {
-    enabled = true
+    api project(':fourd-domain')
+    api project(':fourd-client')
 }

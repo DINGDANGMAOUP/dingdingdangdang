@@ -1,3 +1,5 @@
+import org.gradle.api.internal.project.DefaultProject
+
 plugins {
     id 'java-library'
     id 'org.springframework.boot' version "3.0.3"
@@ -14,18 +16,11 @@ ext {
     colaVersion = '4.3.1'
     mybatisPlusVersion = '3.5.3'
     fastjsonVersion = '2.0.19.android'
+    bootstrapProject = project(":fourd-bootstrap") as DefaultProject
     moduleProjects = subprojects.findAll { it.name.startsWith("fourd-") }
-    javaProjects = subprojects - project(":fourd-bootstrap")
+    javaProjects = subprojects - bootstrapProject
 }
-//非引导模块全部作为依赖jar引入
-configure(javaProjects) { project ->
-    bootJar {
-        enabled = false
-    }
-    jar {
-        enabled = true
-    }
-}
+
 allprojects {
     apply {
         plugin('java-library')
@@ -37,8 +32,8 @@ allprojects {
         configureEach {
             exclude module: 'spring-boot-starter-tomcat'
             resolutionStrategy {
-                cacheChangingModulesFor 0, "seconds"
-                cacheDynamicVersionsFor 0, "seconds"
+                cacheChangingModulesFor(0, 'seconds')
+                cacheDynamicVersionsFor(0, 'seconds')
             }
         }
 
@@ -60,8 +55,14 @@ allprojects {
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         annotationProcessor 'org.projectlombok:lombok'
     }
-
-
+    if (project != bootstrapProject) {
+        bootJar {
+            enabled = false
+        }
+        jar {
+            enabled = true
+        }
+    }
 }
 
 subprojects {
@@ -72,6 +73,9 @@ subprojects {
     }
 }
 
-
-println(moduleProjects)
-println(javaProjects)
+configure(moduleProjects) { project ->
+    println("Configuring module project ${project.name}")
+}
+configure(javaProjects) { project ->
+    println("Configuring jar project ${project.name}")
+}

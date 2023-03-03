@@ -1,11 +1,5 @@
 description = 'FourD Infrastructure'
 
 dependencies {
-    implementation project(":fourd-infrastructure")
-}
-bootJar {
-    enabled = false
-}
-jar {
-    enabled = true
+    api project(":fourd-infrastructure")
 }
