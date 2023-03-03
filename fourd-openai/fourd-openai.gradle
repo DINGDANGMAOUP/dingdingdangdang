@@ -1,0 +1,6 @@
+description = 'FourD Client'
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    //okhttp3
+    implementation 'com.squareup.okhttp3:okhttp'
+}
