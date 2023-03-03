@@ -1,11 +1,11 @@
 rootProject.name = 'dingdingdangdang'
-
 include 'fourd-bootstrap',
         'fourd-domain',
         'fourd-infrastructure',
         'fourd-app',
         'fourd-adapter',
-        'fourd-client'
+        'fourd-client',
+        'fourd-openai'
 
 rootProject.children.each {
     it.buildFileName = "${it.name}.gradle"

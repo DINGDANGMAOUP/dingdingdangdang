@@ -16,6 +16,7 @@ ext {
     colaVersion = '4.3.1'
     mybatisPlusVersion = '3.5.3'
     fastjsonVersion = '2.0.19.android'
+    okhttp3Version='4.10.0'
     bootstrapProject = project(":fourd-bootstrap") as DefaultProject
     moduleProjects = subprojects.findAll { it.name.startsWith("fourd-") }
     javaProjects = subprojects - bootstrapProject
@@ -50,6 +51,7 @@ allprojects {
         api platform("com.alibaba.cola:cola-components-bom:${colaVersion}")
         api platform("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
         api platform("com.alibaba:fastjson:${fastjsonVersion}")
+        api platform("com.squareup.okhttp3:okhttp-bom:${okhttp3Version}")
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -72,10 +74,3 @@ subprojects {
         useJUnitPlatform()
     }
 }
-
-//configure(moduleProjects) { project ->
-//    println("Configuring module project ${project.name}")
-//}
-//configure(javaProjects) { project ->
-//    println("Configuring jar project ${project.name}")
-//}

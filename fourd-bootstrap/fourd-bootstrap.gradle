@@ -1,5 +1,6 @@
 description = 'FourD Bootstrap'
 dependencies {
+    api project(':fourd-openai')
     api project(':fourd-adapter')
 //    implementation 'org.springframework.boot:spring-boot-starter-aop'
 //    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
