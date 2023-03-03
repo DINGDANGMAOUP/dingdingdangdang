@@ -73,9 +73,9 @@ subprojects {
     }
 }
 
-configure(moduleProjects) { project ->
-    println("Configuring module project ${project.name}")
-}
-configure(javaProjects) { project ->
-    println("Configuring jar project ${project.name}")
-}
+//configure(moduleProjects) { project ->
+//    println("Configuring module project ${project.name}")
+//}
+//configure(javaProjects) { project ->
+//    println("Configuring jar project ${project.name}")
+//}
