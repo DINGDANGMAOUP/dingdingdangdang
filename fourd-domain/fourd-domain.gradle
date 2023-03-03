@@ -1,0 +1,24 @@
+description = 'FourD Domain'
+
+dependencies {
+    //cola start
+    implementation 'com.alibaba.cola:cola-component-domain-starter'
+    implementation 'com.alibaba.cola:cola-component-exception'
+    implementation 'com.alibaba.cola:cola-component-dto'
+    implementation 'com.alibaba.cola:cola-component-catchlog-starter'
+    //cola end
+//    implementation 'org.springframework:spring-boot-starter-aop'
+
+    implementation 'com.alibaba:fastjson'
+//    implementation 'com.baomidou:mybatis-plus-boot-starter'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'org.apache.httpcomponents:httpclient'
+
+
+}
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}

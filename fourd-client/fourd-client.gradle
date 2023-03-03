@@ -1,0 +1,13 @@
+description = 'FourD Client'
+
+dependencies {
+    implementation 'com.alibaba.cola:cola-component-dto'
+}
+
+
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}

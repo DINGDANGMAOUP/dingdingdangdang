@@ -12,20 +12,36 @@ sourceCompatibility = '17'
 ext {
     springBootVersion = '3.0.3'
     colaVersion = '4.3.1'
+    mybatisPlusVersion = '3.5.3'
+    fastjsonVersion = '2.0.19.android'
     moduleProjects = subprojects.findAll { it.name.startsWith("fourd-") }
-//    javaProjects = subprojects - project(":framework-bom") - project(":framework-platform")
+    javaProjects = subprojects - project(":fourd-bootstrap")
 }
-
+//非引导模块全部作为依赖jar引入
+configure(javaProjects) { project ->
+    bootJar {
+        enabled = false
+    }
+    jar {
+        enabled = true
+    }
+}
 allprojects {
     apply {
         plugin('java-library')
         plugin('org.springframework.boot')
         plugin('io.spring.dependency-management')
     }
+
     configurations {
         configureEach {
             exclude module: 'spring-boot-starter-tomcat'
+            resolutionStrategy {
+                cacheChangingModulesFor 0, "seconds"
+                cacheDynamicVersionsFor 0, "seconds"
+            }
         }
+
     }
     repositories {
         maven {
@@ -37,30 +53,25 @@ allprojects {
     dependencies {
         api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
         api platform("com.alibaba.cola:cola-components-bom:${colaVersion}")
+        api platform("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
+        api platform("com.alibaba:fastjson:${fastjsonVersion}")
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         annotationProcessor 'org.projectlombok:lombok'
     }
 
+
 }
 
 subprojects {
     group = rootProject.group
     version = rootProject.version
-    tasks.named('test') {
+    test {
         useJUnitPlatform()
     }
 }
 
-//非引导模块全部作为依赖jar引入
-allprojects.forEach {
-    if (it != project(':fourd-bootstrap')) {
-        bootJar {
-            enabled = false
-        }
-        jar {
-            enabled = true
-        }
-    }
-}
+
+println(moduleProjects)
+println(javaProjects)
