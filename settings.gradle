@@ -1,0 +1,9 @@
+rootProject.name = 'dingdingdangdang'
+include 'fourd-bootstrap'
+rootProject.children.each {
+    it.buildFileName = "${it.name}.gradle"
+    it.children.each {
+        it.buildFileName = "${it.name}.gradle"
+    }
+}
+

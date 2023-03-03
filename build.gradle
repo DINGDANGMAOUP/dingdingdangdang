@@ -1,0 +1,66 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version "3.0.3"
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.dingdangmaoup'
+version = '1.0.0'
+description = 'FourD Parent Project'
+sourceCompatibility = '17'
+
+ext {
+    springBootVersion = '3.0.3'
+    colaVersion = '4.3.1'
+    moduleProjects = subprojects.findAll { it.name.startsWith("fourd-") }
+//    javaProjects = subprojects - project(":framework-bom") - project(":framework-platform")
+}
+
+allprojects {
+    apply {
+        plugin('java-library')
+        plugin('org.springframework.boot')
+        plugin('io.spring.dependency-management')
+    }
+    configurations {
+        configureEach {
+            exclude module: 'spring-boot-starter-tomcat'
+        }
+    }
+    repositories {
+        maven {
+            url 'http://10.10.201.24:8081/repository/maven-public/'
+            allowInsecureProtocol = true
+        }
+        mavenCentral()
+    }
+    dependencies {
+        api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        api platform("com.alibaba.cola:cola-components-bom:${colaVersion}")
+        compileOnly 'org.projectlombok:lombok'
+        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+}
+
+subprojects {
+    group = rootProject.group
+    version = rootProject.version
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}
+
+//非引导模块全部作为依赖jar引入
+allprojects.forEach {
+    if (it != project(':fourd-bootstrap')) {
+        bootJar {
+            enabled = false
+        }
+        jar {
+            enabled = true
+        }
+    }
+}
