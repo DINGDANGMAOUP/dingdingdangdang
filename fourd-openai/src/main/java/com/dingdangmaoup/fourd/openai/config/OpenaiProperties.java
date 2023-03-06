@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "openai")
-public class OpenAIProperties {
+public class OpenaiProperties {
 
   /**
    * OpenAI API Key

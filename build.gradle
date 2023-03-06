@@ -10,12 +10,12 @@ group = 'com.dingdangmaoup'
 version = '1.0.0'
 description = 'FourD Parent Project'
 sourceCompatibility = '17'
-
+JavaVersion
 ext {
     springBootVersion = '3.0.3'
     colaVersion = '4.3.1'
     mybatisPlusVersion = '3.5.3'
-    fastjsonVersion = '2.0.19.android'
+    fastjson2Version = '2.0.24'
     okhttp3Version='4.10.0'
     bootstrapProject = project(":fourd-bootstrap") as DefaultProject
     moduleProjects = subprojects.findAll { it.name.startsWith("fourd-") }
@@ -50,7 +50,8 @@ allprojects {
         api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
         api platform("com.alibaba.cola:cola-components-bom:${colaVersion}")
         api platform("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
-        api platform("com.alibaba:fastjson:${fastjsonVersion}")
+        api platform("com.alibaba.fastjson2:fastjson2:${fastjson2Version}")
+        api platform("com.alibaba.fastjson2:fastjson2-extension-spring6:${fastjson2Version}")
         api platform("com.squareup.okhttp3:okhttp-bom:${okhttp3Version}")
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'

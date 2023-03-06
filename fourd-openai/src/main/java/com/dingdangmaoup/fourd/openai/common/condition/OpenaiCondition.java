@@ -1,5 +1,6 @@
-package com.dingdangmaoup.fourd.openai.condition;
+package com.dingdangmaoup.fourd.openai.common.condition;
 
+import com.dingdangmaoup.fourd.openai.common.constant.OpenaiConstants;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -18,7 +19,7 @@ public class OpenaiCondition implements Condition {
   @Override
   public boolean matches(ConditionContext context, @NotNull AnnotatedTypeMetadata metadata) {
     Environment environment = context.getEnvironment();
-    String property = environment.getProperty("openai.config.api-key");
+    String property = environment.getProperty(OpenaiConstants.CONFIG_PREFIX);
     return property != null && !property.isEmpty();
   }
 
