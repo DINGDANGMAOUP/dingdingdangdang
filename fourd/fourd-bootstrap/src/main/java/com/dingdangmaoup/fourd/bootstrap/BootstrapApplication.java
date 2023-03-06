@@ -1,10 +1,6 @@
 package com.dingdangmaoup.fourd.bootstrap;
 
 
-import com.dingdangmaoup.openai.client.OpenaiClient;
-import com.dingdangmaoup.openai.entity.ChatResponse;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,17 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BootstrapApplication {
 
 
-//  @Autowired
-//  OpenaiClient openaiClient;
-
   public static void main(String[] args) {
     SpringApplication.run(BootstrapApplication.class, args);
   }
-
-//  @PostConstruct
-//  public void test() {
-//    ChatResponse response = openaiClient.chat("你好");
-//    System.out.println(response);
-//  }
 
 }

@@ -55,9 +55,7 @@ public class OpenaiClient {
     Request request = new Request.Builder().url(OpenaiConstants.OPENAI_URL)
         .addHeader(OpenaiConstants.TOKEN_HEADER,
             OpenaiConstants.TOKEN_PREFIX + openaiProperties.getConfig().getApiKey())
-        .addHeader("Content-Type", "application/json")
-        .method("POST", body)
-//        .post(body)
+        .post(body)
         .build();
     try (Response response = okHttpClient.newCall(request).execute()) {
       return JSONObject.parseObject(response.body() != null ? response.body().string() : null,

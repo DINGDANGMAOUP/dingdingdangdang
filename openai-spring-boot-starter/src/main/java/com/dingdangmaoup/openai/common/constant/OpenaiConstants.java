@@ -10,8 +10,11 @@ import okhttp3.MediaType;
  */
 public interface OpenaiConstants {
 
+
   String TOKEN_HEADER = "Authorization";
+
   String TOKEN_PREFIX = "Bearer ";
+
   String CONFIG_PREFIX = "openai.config.api-key";
   String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
   MediaType JSON

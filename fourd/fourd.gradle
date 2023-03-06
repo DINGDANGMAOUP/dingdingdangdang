@@ -1,9 +1,3 @@
 description = 'FourD Parent Project'
 dependencies {
 }
-bootJar {
-    enabled = false
-}
-jar {
-    enabled = true
-}
