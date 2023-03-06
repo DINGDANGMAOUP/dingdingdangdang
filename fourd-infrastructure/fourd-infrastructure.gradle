@@ -1,6 +1,0 @@
-description = 'FourD Infrastructure'
-
-dependencies {
-    api project(':fourd-domain')
-    api project(':fourd-client')
-}

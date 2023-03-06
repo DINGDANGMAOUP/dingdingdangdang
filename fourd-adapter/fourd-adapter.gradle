@@ -1,7 +1,0 @@
-description = 'FourD Adapter'
-
-dependencies {
-    api project(":fourd-app")
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-}
-

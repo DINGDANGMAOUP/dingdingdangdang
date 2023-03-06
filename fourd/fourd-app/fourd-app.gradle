@@ -1,0 +1,5 @@
+description = 'FourD Infrastructure'
+
+dependencies {
+    api project(":fourd:fourd-infrastructure")
+}

@@ -1,11 +1,12 @@
 rootProject.name = 'dingdingdangdang'
-include 'fourd-bootstrap',
-        'fourd-domain',
-        'fourd-infrastructure',
-        'fourd-app',
-        'fourd-adapter',
-        'fourd-client',
-        'fourd-openai'
+include 'fourd',
+        'fourd:fourd-bootstrap',
+        'fourd:fourd-domain',
+        'fourd:fourd-infrastructure',
+        'fourd:fourd-app',
+        'fourd:fourd-adapter',
+        'fourd:fourd-client',
+        'openai-spring-boot-starter';
 
 rootProject.children.each {
     it.buildFileName = "${it.name}.gradle"
