@@ -10,7 +10,6 @@ group = 'com.dingdangmaoup'
 version = '1.0.0'
 description = 'dingdangdangdang-dependencies'
 sourceCompatibility = '17'
-JavaVersion
 ext {
     springBootVersion = '3.0.3'
     colaVersion = '4.3.1'
