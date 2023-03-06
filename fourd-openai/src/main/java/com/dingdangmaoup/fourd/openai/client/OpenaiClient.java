@@ -1,8 +1,8 @@
 package com.dingdangmaoup.fourd.openai.client;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.dingdangmaoup.fourd.openai.common.constant.OpenaiConstants;
 import com.dingdangmaoup.fourd.openai.common.condition.OpenaiCondition;
+import com.dingdangmaoup.fourd.openai.common.constant.OpenaiConstants;
 import com.dingdangmaoup.fourd.openai.config.OpenaiProperties;
 import com.dingdangmaoup.fourd.openai.entity.ChatRequest;
 import com.dingdangmaoup.fourd.openai.entity.ChatResponse;
@@ -54,7 +54,10 @@ public class OpenaiClient {
     RequestBody body = RequestBody.create(JSONObject.toJSONString(chatRequest), OpenaiConstants.JSON);
     Request request = new Request.Builder().url(OpenaiConstants.OPENAI_URL)
         .addHeader(OpenaiConstants.TOKEN_HEADER,
-            OpenaiConstants.TOKEN_PREFIX + openaiProperties.getConfig().getApiKey()).post(body)
+            OpenaiConstants.TOKEN_PREFIX + openaiProperties.getConfig().getApiKey())
+        .addHeader("Content-Type", "application/json")
+        .method("POST", body)
+//        .post(body)
         .build();
     try (Response response = okHttpClient.newCall(request).execute()) {
       return JSONObject.parseObject(response.body() != null ? response.body().string() : null,

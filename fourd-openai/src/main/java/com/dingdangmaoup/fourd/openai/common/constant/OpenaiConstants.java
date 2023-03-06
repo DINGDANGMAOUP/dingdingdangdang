@@ -17,9 +17,9 @@ public interface OpenaiConstants {
   MediaType JSON
       = MediaType.get("application/json; charset=utf-8");
   /**
-   * 默认超时时间 6分钟 MILLISECONDS
+   * 默认超时时间 10分钟 MILLISECONDS
    */
-  Long DEFAULT_TIMEOUT = 6 * 60 * 1000L;
+  Long DEFAULT_TIMEOUT = 10 * 60 * 1000L;
 
 
 }
