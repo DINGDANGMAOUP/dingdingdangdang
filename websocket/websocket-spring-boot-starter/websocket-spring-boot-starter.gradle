@@ -1,0 +1,50 @@
+plugins {
+    id "com.google.protobuf" version "0.9.2"
+}
+description = 'WebSocket Spring Boot Starter'
+dependencies {
+    //protobuf start
+    implementation 'com.google.protobuf:protobuf-java:'
+    implementation 'com.google.protobuf:protobuf-java-util'
+    implementation 'com.googlecode.protobuf-java-format:protobuf-java-format'
+    implementation 'io.grpc:grpc-all'
+    //protobuf end
+    //autoconfigure
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    //netty
+    implementation 'io.netty:netty-all'
+    //cache
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+    //log
+    implementation 'org.slf4j:slf4j-api'
+    protobuf files("${projectDir}/src/main/resources/proto")
+
+}
+protobuf {
+    protoc {
+        // The artifact spec for the Protobuf Compiler
+        artifact = 'com.google.protobuf:protoc:3.6.1'
+    }
+    plugins {
+        // Optional: an artifact spec for a protoc plugin, with "grpc" as
+        // the identifier, which can be referred to in the "plugins"
+        // container of the "generateProtoTasks" closure.
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.15.1'
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet('main').configureEach {
+            plugins {
+                // Apply the "grpc" plugin whose spec is defined above, without
+                // options.  Note the braces cannot be omitted, otherwise the
+                // plugin will not be added. This is because of the implicit way
+                // NamedDomainObjectContainer binds the methods.
+                grpc {
+
+                    outputSubDir = "java/com/dingdangmaoup/websocket/proto"
+                }
+            }
+        }
+    }
+}
