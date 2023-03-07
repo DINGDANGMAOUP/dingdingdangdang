@@ -1,9 +1,2 @@
 server:
   port: 7001
-openai:
-  config:
-    api-key: ${apiKey:''}
-  proxy:
-    enable-proxy: true
-    host: '127.0.0.1'
-    port: 7890

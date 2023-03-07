@@ -1,0 +1,8 @@
+description = 'OpenAI Spring Boot Starter Test'
+
+dependencies {
+    testImplementation project(':openai:openai-spring-boot-starter')
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+

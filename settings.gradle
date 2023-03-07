@@ -6,7 +6,10 @@ include 'fourd',
         'fourd:fourd-app',
         'fourd:fourd-adapter',
         'fourd:fourd-client',
-        'openai-spring-boot-starter';
+        'openai',
+        'openai:openai-spring-boot-starter',
+        'openai:openai-spring-boot-starter-test'
+;
 
 rootProject.children.each {
     it.buildFileName = "${it.name}.gradle"
@@ -14,4 +17,5 @@ rootProject.children.each {
         it.buildFileName = "${it.name}.gradle"
     }
 }
+
 

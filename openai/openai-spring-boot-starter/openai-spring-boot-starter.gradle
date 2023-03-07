@@ -1,4 +1,4 @@
-description = 'FourD Client '
+description = 'openai client strater'
 dependencies {
     //autoconfigure
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
@@ -6,5 +6,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp'
     //fastjson
     implementation 'com.alibaba.fastjson2:fastjson2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }

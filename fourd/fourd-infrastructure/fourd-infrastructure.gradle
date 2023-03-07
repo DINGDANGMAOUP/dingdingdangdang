@@ -3,5 +3,5 @@ description = 'FourD Infrastructure'
 dependencies {
     api project(':fourd:fourd-domain')
     api project(':fourd:fourd-client')
-    api project(':openai-spring-boot-starter')
+//    api project(':openai:openai-spring-boot-starter')
 }

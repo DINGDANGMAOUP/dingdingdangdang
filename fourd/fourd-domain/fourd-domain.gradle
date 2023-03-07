@@ -9,7 +9,7 @@ dependencies {
     //cola end
 
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-    implementation 'com.alibaba:fastjson'
+    implementation 'com.alibaba.fastjson2:fastjson2'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'org.apache.httpcomponents:httpclient'
 
