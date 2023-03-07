@@ -1,6 +1,6 @@
 openai:
   config:
-    api-key: ${apiKey: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}
+    api-key: ${apiKey:''}
   proxy:
     enable-proxy: true
     host: '127.0.0.1'
