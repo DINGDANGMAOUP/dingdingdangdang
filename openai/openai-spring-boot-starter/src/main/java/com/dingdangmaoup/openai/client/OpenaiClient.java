@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Import;
 @EnableConfigurationProperties(OpenaiProperties.class)
 @Conditional(OpenaiCondition.class)
 @Import(OkHttpClient.class)
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
 public class OpenaiClient {
 
   private final OpenaiProperties openaiProperties;

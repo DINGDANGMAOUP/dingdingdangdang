@@ -16,8 +16,9 @@ ext {
     mybatisPlusVersion = '3.5.3'
     fastjson2Version = '2.0.24'
     okhttp3Version = '4.10.0'
-    nettyVersion = '4.1.89.Final'
-    caffeineVersion = '3.1.5'
+    protobufVersion = '4.0.0-rc-2'
+    protobufJavaFormatVersion = '1.4'
+    grpcVersion = '1.53.0'
     bootstrapProject = project(":fourd:fourd-bootstrap") as DefaultProject
 }
 
@@ -53,8 +54,11 @@ allprojects {
         api platform("com.alibaba.fastjson2:fastjson2:${fastjson2Version}")
         api platform("com.alibaba.fastjson2:fastjson2-extension-spring6:${fastjson2Version}")
         api platform("com.squareup.okhttp3:okhttp-bom:${okhttp3Version}")
-        api platform("io.netty:netty-all:${nettyVersion}")
-        api platform("com.github.ben-manes.caffeine:caffeine:${caffeineVersion}")
+        api platform("com.google.protobuf:protobuf-java:${protobufVersion}")
+        api platform("com.google.protobuf:protobuf-java-util:${protobufVersion}")
+        api platform("com.googlecode.protobuf-java-format:protobuf-java-format:${protobufJavaFormatVersion}")
+        api platform("io.grpc:grpc-all:${grpcVersion}")
+
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

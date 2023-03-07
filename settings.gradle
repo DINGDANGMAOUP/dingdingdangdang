@@ -8,7 +8,9 @@ include 'fourd',
         'fourd:fourd-client',
         'openai',
         'openai:openai-spring-boot-starter',
-        'openai:openai-spring-boot-starter-test'
+        'openai:openai-spring-boot-starter-test',
+        'websocket',
+        'websocket:websocket-spring-boot-starter'
 ;
 
 rootProject.children.each {
