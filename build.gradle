@@ -17,8 +17,6 @@ ext {
     fastjson2Version = '2.0.24'
     okhttp3Version='4.10.0'
     bootstrapProject = project(":fourd:fourd-bootstrap") as DefaultProject
-    moduleProjects = subprojects.findAll { it.name.startsWith("fourd-") }
-    javaProjects = subprojects - bootstrapProject
 }
 
 allprojects {
@@ -58,7 +56,6 @@ allprojects {
         annotationProcessor 'org.projectlombok:lombok'
     }
     if (project != bootstrapProject) {
-        println("project.name = ${project.name}")
         bootJar {
             enabled = false
         }
