@@ -2,10 +2,10 @@ description = 'FourD Domain'
 
 dependencies {
     //cola start
-    implementation 'com.alibaba.cola:cola-component-domain-starter'
-    implementation 'com.alibaba.cola:cola-component-exception'
-    implementation 'com.alibaba.cola:cola-component-dto'
-    implementation 'com.alibaba.cola:cola-component-catchlog-starter'
+    api 'com.alibaba.cola:cola-component-domain-starter'
+    api 'com.alibaba.cola:cola-component-exception'
+    api 'com.alibaba.cola:cola-component-dto'
+    api 'com.alibaba.cola:cola-component-catchlog-starter'
     //cola end
 
     implementation 'org.springframework.boot:spring-boot-starter-aop'

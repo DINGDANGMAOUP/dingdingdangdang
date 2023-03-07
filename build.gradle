@@ -15,7 +15,9 @@ ext {
     colaVersion = '4.3.1'
     mybatisPlusVersion = '3.5.3'
     fastjson2Version = '2.0.24'
-    okhttp3Version='4.10.0'
+    okhttp3Version = '4.10.0'
+    nettyVersion = '4.1.89.Final'
+    caffeineVersion = '3.1.5'
     bootstrapProject = project(":fourd:fourd-bootstrap") as DefaultProject
 }
 
@@ -29,6 +31,7 @@ allprojects {
     configurations {
         configureEach {
             exclude module: 'spring-boot-starter-tomcat'
+            exclude module: 'undertow-websockets-jsr'
             resolutionStrategy {
                 cacheChangingModulesFor(0, 'seconds')
                 cacheDynamicVersionsFor(0, 'seconds')
@@ -50,6 +53,8 @@ allprojects {
         api platform("com.alibaba.fastjson2:fastjson2:${fastjson2Version}")
         api platform("com.alibaba.fastjson2:fastjson2-extension-spring6:${fastjson2Version}")
         api platform("com.squareup.okhttp3:okhttp-bom:${okhttp3Version}")
+        api platform("io.netty:netty-all:${nettyVersion}")
+        api platform("com.github.ben-manes.caffeine:caffeine:${caffeineVersion}")
         compileOnly 'org.projectlombok:lombok'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

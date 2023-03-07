@@ -2,4 +2,4 @@ server:
   port: 7001
 logging:
   level:
-    com.dingdangmaoup.fourd.bootstrap: debug
+    com.dingdangmaoup.fourd.adapter: debug
