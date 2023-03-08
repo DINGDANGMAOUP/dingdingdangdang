@@ -1,24 +1,23 @@
 package com.dingdangmaoup.websocket.handler;
 
 
-import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto.WebsocketResponse;
-import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto.WebsocketResponse.ResponseType;
+import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto;
 import com.google.protobuf.ByteString;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class WebsocketServerHandle extends
-    SimpleChannelInboundHandler<WebSocketFrame> {
+    SimpleChannelInboundHandler<WebsocketMessagesProto.WebsocketRequest> {
 
   @Override
   public void channelActive(ChannelHandlerContext ctx) throws Exception {
     super.channelActive(ctx);
-    WebsocketResponse response = WebsocketResponse.newBuilder().setResponseId(1).setResponseType(
-        ResponseType.OPENAI).setResponseData(ByteString.copyFrom("hello".getBytes())).build();
+    WebsocketMessagesProto.WebsocketResponse response = WebsocketMessagesProto.WebsocketResponse.newBuilder()
+        .setResponseId(1).setResponseType(
+            WebsocketMessagesProto.WebsocketResponse.ResponseType.OPENAI)
+        .setResponseData(ByteString.copyFrom("i am ok".getBytes())).build();
     ctx.channel().writeAndFlush(response);
     log.info("server active...");
   }
@@ -30,12 +29,13 @@ public class WebsocketServerHandle extends
 
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame msg) throws Exception {
+  protected void channelRead0(ChannelHandlerContext ctx, WebsocketMessagesProto.WebsocketRequest msg) throws Exception {
     log.info("server read...");
-//    WebsocketRequest request = WebsocketRequest.parseFrom(msg.content().array());
-    log.info("request: {}", ((TextWebSocketFrame)msg).text());
-    WebsocketResponse response = WebsocketResponse.newBuilder().setResponseId(1).setResponseType(
-        ResponseType.OPENAI).setResponseData(ByteString.copyFrom("hello".getBytes())).build();
+    log.info("request: {}", msg);
+    WebsocketMessagesProto.WebsocketResponse response = WebsocketMessagesProto.WebsocketResponse.newBuilder()
+        .setResponseId(1).setResponseType(
+            WebsocketMessagesProto.WebsocketResponse.ResponseType.OPENAI)
+        .setResponseData(ByteString.copyFrom("hello".getBytes())).build();
     ctx.channel().writeAndFlush(response);
   }
 }

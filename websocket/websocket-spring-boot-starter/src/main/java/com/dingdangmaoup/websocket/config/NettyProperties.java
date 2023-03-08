@@ -11,6 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class NettyProperties {
 
   /**
+   * websocket server path
+   */
+  private String path = "/websocket";
+  /**
    * websocket server port
    */
   private int port = 6666;

@@ -31,7 +31,7 @@ public class WebsocketServer {
       b.group(bossGroup, workerGroup)
           .channel(NioServerSocketChannel.class)
           .handler(new LoggingHandler(LogLevel.INFO))
-          .childHandler(new WebsocketServerInitializer());
+          .childHandler(new WebsocketServerInitializer(nettyProperties));
       Channel ch = b.bind(nettyProperties.getHost(), nettyProperties.getPort()).sync().channel();
       ch.closeFuture().sync();
     } finally {
