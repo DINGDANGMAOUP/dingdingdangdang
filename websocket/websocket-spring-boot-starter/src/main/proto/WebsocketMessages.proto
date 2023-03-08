@@ -3,12 +3,12 @@ syntax = "proto3"; // 使用proto3语法
 option java_package = "com.dingdangmaoup.websocket.proto";
 option java_outer_classname = "WebsocketMessagesProto";
 message WebsocketRequest {
+
     //请求id
     int64 requestId = 1;
     //时间戳
     int64 timestamp = 2;
     //请求类型
-
     enum RequestType{
 
         //心跳
@@ -16,11 +16,11 @@ message WebsocketRequest {
         //openai
         OPENAI = 1;
     }
-
     RequestType requestType = 3;
-
     //请求数据
     bytes requestData = 4;
+
+
 
 }
 message WebsocketResponse {

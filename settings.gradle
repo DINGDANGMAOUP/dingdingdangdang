@@ -10,7 +10,8 @@ include 'fourd',
         'openai:openai-spring-boot-starter',
         'openai:openai-spring-boot-starter-test',
         'websocket',
-        'websocket:websocket-spring-boot-starter'
+        'websocket:websocket-spring-boot-starter',
+        'websocket:websocket-spring-boot-starter-test'
 ;
 
 rootProject.children.each {
@@ -19,5 +20,4 @@ rootProject.children.each {
         it.buildFileName = "${it.name}.gradle"
     }
 }
-
 

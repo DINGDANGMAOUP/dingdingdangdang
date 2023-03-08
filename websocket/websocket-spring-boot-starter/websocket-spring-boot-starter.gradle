@@ -17,10 +17,10 @@ dependencies {
     implementation 'com.github.ben-manes.caffeine:caffeine'
     //log
     implementation 'org.slf4j:slf4j-api'
-    protobuf files("${projectDir}/src/main/resources/proto")
-
+    //protobuf default file path is src/main/proto protobuf files("${projectDir}/src/main/proto")
 }
 protobuf {
+    generatedFilesBaseDirProperty = "${projectDir}/src"
     protoc {
         // The artifact spec for the Protobuf Compiler
         artifact = 'com.google.protobuf:protoc:3.6.1'
@@ -41,8 +41,7 @@ protobuf {
                 // plugin will not be added. This is because of the implicit way
                 // NamedDomainObjectContainer binds the methods.
                 grpc {
-
-                    outputSubDir = "java/com/dingdangmaoup/websocket/proto"
+                    outputSubDir = ''
                 }
             }
         }

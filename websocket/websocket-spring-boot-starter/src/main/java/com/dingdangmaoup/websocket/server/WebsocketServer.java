@@ -15,15 +15,16 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties(NettyProperties.class)
 public class WebsocketServer {
 
-  private NettyProperties nettyProperties;
+ private final NettyProperties nettyProperties;
 
   @Autowired
   public WebsocketServer(NettyProperties nettyProperties) {
     this.nettyProperties = nettyProperties;
   }
+
   public void init() throws InterruptedException {
-    EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-    EventLoopGroup workerGroup = new NioEventLoopGroup();
+    EventLoopGroup bossGroup = new NioEventLoopGroup(nettyProperties.getBossGroupThreadCount());
+    EventLoopGroup workerGroup = new NioEventLoopGroup(nettyProperties.getWorkerGroupThreadCount());
 
     try {
       ServerBootstrap b = new ServerBootstrap();
@@ -31,8 +32,7 @@ public class WebsocketServer {
           .channel(NioServerSocketChannel.class)
           .handler(new LoggingHandler(LogLevel.INFO))
           .childHandler(new WebsocketServerInitializer());
-
-      Channel ch = b.bind(nettyProperties.getPort()).sync().channel();
+      Channel ch = b.bind(nettyProperties.getHost(), nettyProperties.getPort()).sync().channel();
       ch.closeFuture().sync();
     } finally {
       bossGroup.shutdownGracefully();
