@@ -7,6 +7,13 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * websocket解码
+ *
+ * @author dzhao1
+ * @date 2023/03/09
+ */
+@Deprecated
 @Slf4j
 public class WebsocketDecode extends ByteToMessageDecoder {
 
@@ -19,7 +26,6 @@ public class WebsocketDecode extends ByteToMessageDecoder {
 //    byte[] array = new byte[length];
 //    in.getBytes(in.readerIndex(), array, 0, length);
 //    out.add(WebsocketMessagesProto.WebsocketRequest.parseFrom(array));
-
     if (in.readableBytes() < 4) {
       return;
     }
@@ -31,7 +37,7 @@ public class WebsocketDecode extends ByteToMessageDecoder {
     }
     byte[] bytes = new byte[length];
     in.readBytes(bytes);
-    WebsocketMessagesProto.WebsocketRequest message = WebsocketMessagesProto.WebsocketRequest.parseFrom(
+    WebsocketMessagesProto.WebsocketMessage message = WebsocketMessagesProto.WebsocketMessage.parseFrom(
         bytes);
     out.add(message);
 

@@ -3,7 +3,7 @@ package com.dingdangmaoup.websocket.server;
 import com.dingdangmaoup.websocket.config.NettyProperties;
 import com.dingdangmaoup.websocket.handler.WebsocketServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -23,20 +23,16 @@ public class WebsocketServer {
   }
 
   public void init() throws InterruptedException {
-    EventLoopGroup bossGroup = new NioEventLoopGroup(nettyProperties.getBossGroupThreadCount());
-    EventLoopGroup workerGroup = new NioEventLoopGroup(nettyProperties.getWorkerGroupThreadCount());
+    EventLoopGroup bossGroup = new NioEventLoopGroup();
+    EventLoopGroup workerGroup = new NioEventLoopGroup();
+    ServerBootstrap b = new ServerBootstrap();
+    b.group(bossGroup, workerGroup)
+        .channel(NioServerSocketChannel.class)
+        .handler(new LoggingHandler(LogLevel.INFO))
+//        .option(ChannelOption.SO_BACKLOG, 1024)
+        .childOption(ChannelOption.SO_KEEPALIVE, true)
+        .childHandler(new WebsocketServerInitializer(nettyProperties));
+    b.bind(nettyProperties.getPort()).channel().closeFuture().sync();
 
-    try {
-      ServerBootstrap b = new ServerBootstrap();
-      b.group(bossGroup, workerGroup)
-          .channel(NioServerSocketChannel.class)
-          .handler(new LoggingHandler(LogLevel.INFO))
-          .childHandler(new WebsocketServerInitializer(nettyProperties));
-      Channel ch = b.bind(nettyProperties.getHost(), nettyProperties.getPort()).sync().channel();
-      ch.closeFuture().sync();
-    } finally {
-      bossGroup.shutdownGracefully();
-      workerGroup.shutdownGracefully();
-    }
   }
 }

@@ -2,42 +2,39 @@ syntax = "proto3"; // 使用proto3语法
 
 option java_package = "com.dingdangmaoup.websocket.proto";
 option java_outer_classname = "WebsocketMessagesProto";
-message WebsocketRequest {
 
-    //请求id
-    int64 requestId = 1;
+message WebsocketMessage{
+    //消息类型
+    enum MessageType{
+        //未知
+        UNKNOWN = 0;
+        //请求
+        REQUEST = 1;
+        //响应
+        RESPONSE = 3;
+    }
+    MessageType messageType = 1;
     //时间戳
     int64 timestamp = 2;
-    //请求类型
-    enum RequestType{
+    //消息体
+    message MessageData{
 
-        //心跳
-        HEARTBEAT = 0;
-        //openai
-        OPENAI = 1;
+        //操作类型
+        enum OperationType{
+            //未知
+            UNKNOWN = 0;
+            //心跳
+            HEARTBEAT = 1;
+            //openai
+            OPENAI = 2;
+        }
+        OperationType operationType = 1;
+
+        int64 messageId = 2;
+        bytes messageData = 3;
     }
-    RequestType requestType = 3;
-    //请求数据
-    bytes requestData = 4;
-
-
+    MessageData messageData = 3;
 
 }
-message WebsocketResponse {
-    //响应id
-    int64 responseId = 1;
-    //时间戳
-    int64 timestamp = 2;
-    //响应类型
-    enum ResponseType{
 
-        //心跳
-        HEARTBEAT = 0;
-        //openai
-        OPENAI = 1;
-    }
-    ResponseType responseType = 3;
-    //响应数据
-    bytes responseData = 4;
-}
 

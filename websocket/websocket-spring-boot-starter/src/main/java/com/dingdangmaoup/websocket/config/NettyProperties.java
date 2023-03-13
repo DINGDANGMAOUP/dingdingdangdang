@@ -17,7 +17,7 @@ public class NettyProperties {
   /**
    * websocket server port
    */
-  private int port = 6666;
+  private int port = 19999;
   /**
    * websocket server host <p/>default is localhost
    */

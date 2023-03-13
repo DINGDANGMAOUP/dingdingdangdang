@@ -2,40 +2,45 @@ package com.dingdangmaoup.websocket.handler;
 
 
 import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto;
-import com.google.protobuf.ByteString;
+import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto.WebsocketMessage;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Sharable
 public class WebsocketServerHandle extends
-    SimpleChannelInboundHandler<WebsocketMessagesProto.WebsocketRequest> {
+    SimpleChannelInboundHandler<WebsocketMessagesProto.WebsocketMessage> {
 
   @Override
   public void channelActive(ChannelHandlerContext ctx) throws Exception {
-    super.channelActive(ctx);
-    WebsocketMessagesProto.WebsocketResponse response = WebsocketMessagesProto.WebsocketResponse.newBuilder()
-        .setResponseId(1).setResponseType(
-            WebsocketMessagesProto.WebsocketResponse.ResponseType.OPENAI)
-        .setResponseData(ByteString.copyFrom("i am ok".getBytes())).build();
-    ctx.channel().writeAndFlush(response);
-    log.info("server active...");
+    log.info("客户端与服务端会话连接成功");
   }
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-    log.info("server inactive...");
+    super.channelInactive(ctx);
+    log.info("客户端与服务端会话连接断开");
   }
 
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, WebsocketMessagesProto.WebsocketRequest msg) throws Exception {
+  protected void channelRead0(ChannelHandlerContext ctx,
+      WebsocketMessagesProto.WebsocketMessage msg) throws Exception {
     log.info("server read...");
-    log.info("request: {}", msg);
-    WebsocketMessagesProto.WebsocketResponse response = WebsocketMessagesProto.WebsocketResponse.newBuilder()
-        .setResponseId(1).setResponseType(
-            WebsocketMessagesProto.WebsocketResponse.ResponseType.OPENAI)
-        .setResponseData(ByteString.copyFrom("hello".getBytes())).build();
-    ctx.channel().writeAndFlush(response);
+    log.info("server read request: {}", msg);
+    WebsocketMessage build = WebsocketMessage.newBuilder().build();
+    ctx.writeAndFlush(build);
   }
+
+  /**
+   * 服务端监听到客户端异常
+   */
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    log.info("服务端监听到客户端异常");
+  }
+
+
 }
