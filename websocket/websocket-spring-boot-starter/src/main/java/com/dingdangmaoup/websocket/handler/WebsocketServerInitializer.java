@@ -1,8 +1,8 @@
 package com.dingdangmaoup.websocket.handler;
 
 import com.dingdangmaoup.websocket.config.NettyProperties;
-import com.dingdangmaoup.websocket.decode.WebSocketFrameDecode;
-import com.dingdangmaoup.websocket.encode.WebsocketMessageLiteEncode;
+import com.dingdangmaoup.websocket.decode.WebSocketFrameDecoder;
+import com.dingdangmaoup.websocket.encode.WebsocketMessageLiteEncoder;
 import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -41,9 +41,9 @@ public class WebsocketServerInitializer extends ChannelInitializer<SocketChannel
     pipeline.addLast(
         new WebSocketServerProtocolHandler(nettyProperties.getPath(), null, true));
         // 协议包解码
-    pipeline.addLast(new WebSocketFrameDecode());
+    pipeline.addLast(new WebSocketFrameDecoder());
     // 重写 Protobuf消息编码器 协议包编码
-    pipeline.addLast(new WebsocketMessageLiteEncode());
+    pipeline.addLast(new WebsocketMessageLiteEncoder());
 
     //解码器，通过Google Protocol Buffers序列化框架动态的切割接收到的ByteBuf
     pipeline.addLast(new ProtobufVarint32FrameDecoder());

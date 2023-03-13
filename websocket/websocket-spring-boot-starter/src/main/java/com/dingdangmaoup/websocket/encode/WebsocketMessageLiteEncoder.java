@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2023/03/09
  */
 @Slf4j
-public class WebsocketMessageLiteEncode extends MessageToMessageEncoder<MessageLiteOrBuilder> {
+public class WebsocketMessageLiteEncoder extends MessageToMessageEncoder<MessageLiteOrBuilder> {
 
   @Override
   protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg, List<Object> out)

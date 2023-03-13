@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2023/03/09
  */
 @Slf4j
-public class WebSocketFrameDecode extends MessageToMessageDecoder<WebSocketFrame> {
+public class WebSocketFrameDecoder extends MessageToMessageDecoder<WebSocketFrame> {
 
 
   @Override
