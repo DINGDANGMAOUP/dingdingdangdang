@@ -2,6 +2,7 @@ package com.dingdangmaoup.websocket;
 
 
 import com.dingdangmaoup.websocket.server.WebsocketServer;
+import java.sql.Blob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;

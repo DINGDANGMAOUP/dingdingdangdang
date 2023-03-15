@@ -40,18 +40,22 @@ public class WebsocketServerInitializer extends ChannelInitializer<SocketChannel
     // WebSocket 握手、控制帧处理
     pipeline.addLast(
         new WebSocketServerProtocolHandler(nettyProperties.getPath(), null, true));
-        // 协议包解码
-    pipeline.addLast(new WebSocketFrameDecoder());
-    // 重写 Protobuf消息编码器 协议包编码
-    pipeline.addLast(new WebsocketMessageLiteEncoder());
 
     //解码器，通过Google Protocol Buffers序列化框架动态的切割接收到的ByteBuf
     pipeline.addLast(new ProtobufVarint32FrameDecoder());
     //Google Protocol Buffers 长度属性编码器
     pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
     // Protobuf消息解码器
-    pipeline.addLast(new ProtobufDecoder(WebsocketMessagesProto.WebsocketMessage.getDefaultInstance()));
+    pipeline.addLast(
+        new ProtobufDecoder(WebsocketMessagesProto.WebsocketMessage.getDefaultInstance()));
 
-    pipeline.addLast(new WebsocketServerHandle());
+    // 协议包解码
+    pipeline.addLast(new WebSocketFrameDecoder());
+    // 重写 Protobuf消息编码器 协议包编码
+    pipeline.addLast(new WebsocketMessageLiteEncoder());
+    pipeline.addLast("customHandle", new WebsocketServerHandle());
+    pipeline.addLast("idleStateHandler", new IdServerHandler(nettyProperties));
+    pipeline.addLast("heartBeatHandler", new HeartbeatHandler());
+
   }
 }

@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class WebsocketApplicationTests {
-@Autowired
-  WebsocketServer websocketServer;
+//@Autowired
+//  WebsocketServer websocketServer;
 //  @Test
 //  void contextLoads() throws InterruptedException {
 //    websocketServer.init();
