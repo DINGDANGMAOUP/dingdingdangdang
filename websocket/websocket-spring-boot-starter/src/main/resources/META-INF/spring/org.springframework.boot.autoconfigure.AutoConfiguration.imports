@@ -1,1 +1,2 @@
 com.dingdangmaoup.websocket.server.WebsocketServer
+com.dingdangmaoup.websocket.config.CacheConfig

@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class IPUtil {
 
+  private IPUtil() {
+  }
+
   public static String getLocalhost() {
     try {
       return InetAddress.getLocalHost().getHostAddress();

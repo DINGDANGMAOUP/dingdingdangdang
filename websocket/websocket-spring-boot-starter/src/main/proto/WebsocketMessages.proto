@@ -24,6 +24,7 @@ message WebsocketMessage{
             HEARTBEAT = 0;
             //openai
             OPENAI = 1;
+
         }
         OperationType operationType = 1;
 

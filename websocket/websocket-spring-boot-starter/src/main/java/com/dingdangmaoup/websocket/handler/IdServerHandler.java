@@ -4,9 +4,11 @@ import com.dingdangmaoup.websocket.config.NettyProperties;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @Sharable
+@Component
 public class IdServerHandler extends IdleStateHandler {
 
 

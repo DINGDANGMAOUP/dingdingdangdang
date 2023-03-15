@@ -15,15 +15,20 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequiredArgsConstructor
 public class WebsocketServerInitializer extends ChannelInitializer<SocketChannel> {
 
   private final NettyProperties nettyProperties;
 
+  private final WebsocketServerHandle websocketServerHandle;
 
-  public WebsocketServerInitializer(NettyProperties nettyProperties) {
-    this.nettyProperties = nettyProperties;
-  }
+  private final IdServerHandler idServerHandler;
+  private final HeartbeatHandler heartbeatHandler;
+
 
   @Override
   protected void initChannel(SocketChannel ch) {
@@ -53,9 +58,9 @@ public class WebsocketServerInitializer extends ChannelInitializer<SocketChannel
     pipeline.addLast(new WebSocketFrameDecoder());
     // 重写 Protobuf消息编码器 协议包编码
     pipeline.addLast(new WebsocketMessageLiteEncoder());
-    pipeline.addLast("customHandle", new WebsocketServerHandle());
-    pipeline.addLast("idleStateHandler", new IdServerHandler(nettyProperties));
-    pipeline.addLast("heartBeatHandler", new HeartbeatHandler());
+    pipeline.addLast("customHandle", websocketServerHandle);
+    pipeline.addLast("idleStateHandler", idServerHandler);
+    pipeline.addLast("heartBeatHandler", heartbeatHandler);
 
   }
 }
