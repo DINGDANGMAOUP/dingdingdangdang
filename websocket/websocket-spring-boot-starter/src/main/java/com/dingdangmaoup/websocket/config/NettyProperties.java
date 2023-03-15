@@ -34,6 +34,15 @@ public class NettyProperties {
   private int workerGroupThreadCount = 200;
 
   /**
+    * backlog
+   */
+  private int backlog = 1024;
+  /**
+   * maxFramePayloadLength
+   */
+  private int maxFramePayloadLength = 65536;
+
+  /**
    * heartbeat
    */
   private HeartBeat heartBeat=new HeartBeat();

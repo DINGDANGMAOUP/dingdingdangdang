@@ -2,7 +2,6 @@ package com.dingdangmaoup.websocket.server;
 
 import com.dingdangmaoup.websocket.config.NettyProperties;
 import com.dingdangmaoup.websocket.handler.WebsocketServerInitializer;
-import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto.WebsocketMessage;
 import com.github.benmanes.caffeine.cache.Cache;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -12,7 +11,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import java.util.Queue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Import;
@@ -34,7 +32,7 @@ public class WebsocketServer {
     b.group(bossGroup, workerGroup)
         .channel(NioServerSocketChannel.class)
         .handler(new LoggingHandler(LogLevel.INFO))
-        .option(ChannelOption.SO_BACKLOG, 1024)
+        .option(ChannelOption.SO_BACKLOG, nettyProperties.getBacklog())
         .childOption(ChannelOption.SO_KEEPALIVE, true)
         .childHandler(websocketServerInitializer);
     b.bind(nettyProperties.getPort()).channel().closeFuture().sync();

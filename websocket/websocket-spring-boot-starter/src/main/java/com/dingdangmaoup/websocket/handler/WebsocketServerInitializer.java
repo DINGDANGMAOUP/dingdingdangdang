@@ -37,7 +37,7 @@ public class WebsocketServerInitializer extends ChannelInitializer<SocketChannel
     pipeline.addLast(new HttpServerCodec());
     // 把多个消息转换为一个单一的FullHttpRequest或是FullHttpResponse，
     // 原因是HTTP解码器会在每个HTTP消息中生成多个消息对象HttpRequest/HttpResponse,HttpContent,LastHttpContent
-    pipeline.addLast(new HttpObjectAggregator(65536));
+    pipeline.addLast(new HttpObjectAggregator(nettyProperties.getMaxFramePayloadLength()));
     // 支持大数据流写入
     pipeline.addLast(new ChunkedWriteHandler());
     // WebSocket数据压缩
@@ -58,9 +58,9 @@ public class WebsocketServerInitializer extends ChannelInitializer<SocketChannel
     pipeline.addLast(new WebSocketFrameDecoder());
     // 重写 Protobuf消息编码器 协议包编码
     pipeline.addLast(new WebsocketMessageLiteEncoder());
-    pipeline.addLast("customHandle", websocketServerHandle);
-    pipeline.addLast("idleStateHandler", idServerHandler);
-    pipeline.addLast("heartBeatHandler", heartbeatHandler);
+    pipeline.addLast("CustomHandle", websocketServerHandle);
+    pipeline.addLast("IdleStateHandler", idServerHandler);
+    pipeline.addLast("HeartBeatHandler", heartbeatHandler);
 
   }
 }
