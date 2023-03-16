@@ -1,5 +1,6 @@
 package com.dingdangmaoup.websocket.config;
 
+import com.dingdangmaoup.websocket.annotation.ServerEndpoint;
 import com.dingdangmaoup.websocket.proto.WebsocketMessagesProto;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -20,7 +21,7 @@ public class CacheConfig {
     return Caffeine.newBuilder().maximumSize(1000).recordStats()
         .scheduler(Scheduler.systemScheduler())
         .removalListener(
-            (key, value, cause) -> log.info("淘汰通知,key:{},value:{},原因:{}", key, value, cause))
+            (key, value, cause) -> log.info("Notice of elimination,key:{},value:{},cause:{}", key, value, cause))
         .build();
   }
 

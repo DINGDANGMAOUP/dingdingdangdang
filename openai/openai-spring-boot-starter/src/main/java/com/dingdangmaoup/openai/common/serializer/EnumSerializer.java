@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  * @author dzhao1
  * @date 2023/03/06
  */
-public class EnumSerializer implements ObjectWriter {
+public class EnumSerializer implements ObjectWriter<Object> {
 
 
   @Override
@@ -20,15 +20,23 @@ public class EnumSerializer implements ObjectWriter {
       long features) {
     if (object == null) {
       jsonWriter.writeNull();
-    } else {
-      if (object instanceof ModelType type) {
-        jsonWriter.writeString(type.getCode());
-      } else if (object instanceof RoleType type) {
-        jsonWriter.writeString(type.getCode());
-      } else {
-        jsonWriter.writeString(object.toString());
-      }
+      return;
     }
-
+    if (object instanceof ModelType model) {
+      write(jsonWriter, model);
+    } else if (object instanceof RoleType role) {
+      write(jsonWriter, role);
+    } else {
+      jsonWriter.writeString(object.toString());
+    }
   }
+
+  private void write(JSONWriter jsonWriter, ModelType type) {
+    jsonWriter.writeString(type.getCode());
+  }
+
+  private void write(JSONWriter jsonWriter, RoleType type) {
+    jsonWriter.writeString(type.getCode());
+  }
+
 }

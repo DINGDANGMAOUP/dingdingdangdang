@@ -2,7 +2,7 @@ description = 'FourD Infrastructure'
 
 dependencies {
     api project(":fourd:fourd-infrastructure")
-
+    api project(":websocket:websocket-spring-boot-starter")
 //    api project(':openai:openai-spring-boot-starter')
 }
 

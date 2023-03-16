@@ -2,7 +2,8 @@ package com.dingdangmaoup.websocket;
 
 
 import com.dingdangmaoup.websocket.server.WebsocketServer;
-import java.sql.Blob;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,8 +23,13 @@ public class WebsocketTestApplication {
   @Bean
   public ApplicationRunner runner() {
     return args -> {
-      websocketServer.init();
-      Thread.currentThread().join();
+      new Thread(() -> {
+        try {
+          websocketServer.init();
+          Thread.currentThread().join();
+        } catch (InterruptedException e) {
+        }
+      }).start();
     };
   }
 }

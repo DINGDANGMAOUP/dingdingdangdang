@@ -11,11 +11,13 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import java.util.Queue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 
 @Slf4j
 @Sharable
 @RequiredArgsConstructor
+@Component
 public class WebsocketServerHandle extends
     SimpleChannelInboundHandler<WebsocketMessagesProto.WebsocketMessage> {
 

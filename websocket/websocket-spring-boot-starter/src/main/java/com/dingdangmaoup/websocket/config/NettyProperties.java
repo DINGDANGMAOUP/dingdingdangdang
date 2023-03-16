@@ -1,6 +1,6 @@
 package com.dingdangmaoup.websocket.config;
 
-import com.dingdangmaoup.websocket.util.IPUtil;
+import com.dingdangmaoup.websocket.util.NetUtil;
 import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +18,11 @@ public class NettyProperties {
   /**
    * websocket server port
    */
-  private int port = 19999;
+  private int port = NetUtil.randomPort();
   /**
-   * websocket server host <p/>default is localhost
+   * websocket server host(多网卡时，需手动指定网卡) <p/>default is localhost
    */
-  private String host = IPUtil.getLocalhost();
+  private String host = NetUtil.getLocalhost();
 
   /**
    * bossGroupThreadCount

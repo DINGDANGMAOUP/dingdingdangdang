@@ -12,12 +12,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Import;
 
 @EnableConfigurationProperties(NettyProperties.class)
-@Import(Cache.class)
 @RequiredArgsConstructor
+@Slf4j
 public class WebsocketServer {
 
   private final NettyProperties nettyProperties;
@@ -25,7 +25,7 @@ public class WebsocketServer {
   private final WebsocketServerInitializer websocketServerInitializer;
 
 
-  public void init() throws InterruptedException {
+  public void init() {
     EventLoopGroup bossGroup = new NioEventLoopGroup(nettyProperties.getBossGroupThreadCount());
     EventLoopGroup workerGroup = new NioEventLoopGroup(nettyProperties.getWorkerGroupThreadCount());
     ServerBootstrap b = new ServerBootstrap();
@@ -35,7 +35,15 @@ public class WebsocketServer {
         .option(ChannelOption.SO_BACKLOG, nettyProperties.getBacklog())
         .childOption(ChannelOption.SO_KEEPALIVE, true)
         .childHandler(websocketServerInitializer);
-    b.bind(nettyProperties.getPort()).channel().closeFuture().sync();
+    try {
+      b.bind(nettyProperties.getPort()).channel().closeFuture().sync();
+    } catch (InterruptedException e) {
+      log.error("websocket server init error", e);
+      Thread.currentThread().interrupt();
+    } finally {
+      bossGroup.shutdownGracefully();
+      workerGroup.shutdownGracefully();
+    }
   }
 
   /**

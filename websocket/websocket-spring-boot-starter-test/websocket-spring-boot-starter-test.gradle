@@ -1,5 +1,6 @@
 description = 'WebSocket Spring Boot Starter Test'
 dependencies {
+    testImplementation 'com.github.ben-manes.caffeine:caffeine'
     testImplementation project(':websocket:websocket-spring-boot-starter')
     testImplementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

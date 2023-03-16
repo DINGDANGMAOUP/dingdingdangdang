@@ -5,9 +5,6 @@ description = 'WebSocket Spring Boot Starter'
 dependencies {
     //protobuf start
     implementation 'com.google.protobuf:protobuf-java'
-//    implementation 'com.google.protobuf:protobuf-java-util'
-//    implementation 'com.googlecode.protobuf-java-format:protobuf-java-format'
-//    implementation 'io.grpc:grpc-all'
     //protobuf end
     //autoconfigure
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
