@@ -2,9 +2,7 @@ package com.dingdangmaoup.websocket.server;
 
 import com.dingdangmaoup.websocket.config.NettyProperties;
 import com.dingdangmaoup.websocket.handler.WebsocketServerInitializer;
-import com.github.benmanes.caffeine.cache.Cache;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -21,7 +19,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class WebsocketServer {
 
   private final NettyProperties nettyProperties;
-  private final Cache<String, Channel> cache;
   private final WebsocketServerInitializer websocketServerInitializer;
 
 
@@ -46,10 +43,5 @@ public class WebsocketServer {
     }
   }
 
-  /**
-   * 广播
-   */
-  public void broadcast(String msg) {
-    cache.asMap().values().forEach(channel -> channel.writeAndFlush(msg));
-  }
+
 }

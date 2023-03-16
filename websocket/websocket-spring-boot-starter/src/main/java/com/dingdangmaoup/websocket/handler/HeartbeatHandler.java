@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
 
-  private final Cache<String, Channel> channelCache;
 
 
 
@@ -41,7 +40,6 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
         ctx.writeAndFlush(message);
       } else if (event.state() == IdleState.ALL_IDLE) {
         // 超时关闭连接
-        channelCache.invalidate(ctx.channel().id().asLongText());
         ctx.close();
       }
     }

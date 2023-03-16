@@ -22,21 +22,17 @@ public class WebsocketServerHandle extends
     SimpleChannelInboundHandler<WebsocketMessagesProto.WebsocketMessage> {
 
 
-  private final Cache<String, Channel> channelCache;
 
-  private final Queue<WebsocketMessage> messageQueue;
 
 
   @Override
   public void channelActive(ChannelHandlerContext ctx) throws Exception {
-    channelCache.put(ctx.channel().id().asLongText(), ctx.channel());
     log.info("客户端与服务端会话连接成功");
   }
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
     super.channelInactive(ctx);
-    channelCache.invalidate(ctx.channel().id().asLongText());
     log.info("客户端与服务端会话连接断开");
   }
 
@@ -45,7 +41,6 @@ public class WebsocketServerHandle extends
   protected void channelRead0(ChannelHandlerContext ctx,
       WebsocketMessagesProto.WebsocketMessage msg) throws Exception {
     log.info("server read : {}", msg);
-    messageQueue.offer(msg);
   }
 
   /**
