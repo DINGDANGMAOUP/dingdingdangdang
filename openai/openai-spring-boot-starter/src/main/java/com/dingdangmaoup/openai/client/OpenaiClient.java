@@ -7,6 +7,8 @@ import com.dingdangmaoup.openai.config.OpenaiProperties;
 import com.dingdangmaoup.openai.entity.ChatRequest;
 import com.dingdangmaoup.openai.entity.ChatResponse;
 import com.dingdangmaoup.openai.entity.Message;
+import com.dingdangmaoup.openai.entity.R;
+import com.dingdangmaoup.openai.entity.R.RBuilder;
 import com.dingdangmaoup.openai.exception.OpenaiException;
 import com.dingdangmaoup.openai.type.ModelType;
 import com.dingdangmaoup.openai.type.RoleType;
@@ -37,7 +39,7 @@ public class OpenaiClient {
    * @param content 内容
    * @return {@link ChatResponse}
    */
-  public ChatResponse chat(String content) {
+  public R chat(String content) {
     Message message = Message.builder().role(RoleType.USER).content(content).build();
     ChatRequest request = ChatRequest.builder().model(ModelType.DEFAULT)
         .messages(Collections.singletonList(message)).build();
@@ -50,19 +52,32 @@ public class OpenaiClient {
    * @param chatRequest 聊天请求
    * @return {@link ChatResponse}
    */
-  public ChatResponse chat(ChatRequest chatRequest) {
-    RequestBody body = RequestBody.create(JSONObject.toJSONString(chatRequest), OpenaiConstants.JSON);
+  public R chat(ChatRequest chatRequest) {
+    RBuilder builder = R.builder();
+    builder.success(true);
+    ChatResponse chatResponse = null;
+    String bodyStr = null;
+    RequestBody body = RequestBody.create(JSONObject.toJSONString(chatRequest),
+        OpenaiConstants.JSON);
     Request request = new Request.Builder().url(OpenaiConstants.OPENAI_URL)
         .addHeader(OpenaiConstants.TOKEN_HEADER,
             OpenaiConstants.TOKEN_PREFIX + openaiProperties.getConfig().getApiKey())
         .post(body)
         .build();
     try (Response response = okHttpClient.newCall(request).execute()) {
-      return JSONObject.parseObject(response.body() != null ? response.body().string() : null,
-          ChatResponse.class);
+      bodyStr = response.body() != null ? response.body().string() : null;
+      chatResponse = JSONObject.parseObject(bodyStr, ChatResponse.class);
     } catch (IOException e) {
       throw new OpenaiException(e.getMessage());
     }
+    if (chatResponse != null && !chatResponse.checkNull()) {
+      builder.success(true);
+      builder.data(chatResponse);
+    } else {
+      builder.success(false);
+      builder.message(bodyStr);
+    }
+    return builder.build();
   }
 
 }

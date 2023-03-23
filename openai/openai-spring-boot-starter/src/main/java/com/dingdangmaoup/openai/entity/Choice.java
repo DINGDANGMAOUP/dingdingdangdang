@@ -16,4 +16,6 @@ public class Choice {
 	@JSONField(name="index")
 	private Integer index;
 	private Message message;
+
+
 }
